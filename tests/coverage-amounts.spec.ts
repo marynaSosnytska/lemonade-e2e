@@ -7,7 +7,7 @@ test.describe('Coverage amounts', { tag: '@coverage' }, () => {
     'Personal Liability: stepping up raises the price and stepping back restores it',
     { tag: '@smoke' },
     async ({ quotePage }) => {
-      const before = await quotePage.priceSummary.readCents()
+      const before = await quotePage.priceSummary.getPriceInCents()
 
       await quotePage.coverage(Coverage.PersonalLiability).increase()
 
@@ -26,7 +26,7 @@ test.describe('Coverage amounts', { tag: '@coverage' }, () => {
   test('Loss of use: stepping up raises the price and stepping back restores it', async ({
     quotePage,
   }) => {
-    const before = await quotePage.priceSummary.readCents()
+    const before = await quotePage.priceSummary.getPriceInCents()
 
     await quotePage.coverage(Coverage.LossOfUse).increase()
 
@@ -44,7 +44,7 @@ test.describe('Coverage amounts', { tag: '@coverage' }, () => {
   test('Personal Property: stepping down lowers the price and stepping back up restores it', async ({
     quotePage,
   }) => {
-    const before = await quotePage.priceSummary.readCents()
+    const before = await quotePage.priceSummary.getPriceInCents()
 
     await quotePage.coverage(Coverage.PersonalProperty).decrease()
 

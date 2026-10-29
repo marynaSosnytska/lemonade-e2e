@@ -71,8 +71,8 @@ test.describe('Add-on forms', { tag: '@forms' }, () => {
       const spouseName = `${SPOUSE_BASELINE['First name']} ${SPOUSE_BASELINE['Last name']}`
       const interestedPartyName = INTERESTED_PARTY_BASELINE.Name
 
-      await spouse.turnOn()
-      await interestedParty.turnOn()
+      await spouse.turnOnAndGetQuotation()
+      await interestedParty.turnOnAndGetQuotation()
 
       await test.step('the spouse is on and shows the saved name', async () => {
         await spouse.verifyOn()

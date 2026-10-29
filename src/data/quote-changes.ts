@@ -13,7 +13,7 @@ export const QUOTE_CHANGES: QuoteChange[] = [
   {
     title: 'adding Equipment Breakdown',
     apply: async (quotePage) => {
-      await quotePage.addon(AddonKey.EquipmentBreakdown).turnOn()
+      await quotePage.addon(AddonKey.EquipmentBreakdown).turnOnAndGetQuotation()
     },
   },
   {

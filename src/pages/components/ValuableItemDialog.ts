@@ -37,7 +37,7 @@ export class ValuableItemDialog {
   }
 
   @step('Read the quoted monthly amount from the Add button')
-  async quotedCents(): Promise<number> {
+  async getQuotedCents(): Promise<number> {
     return toCents(await this.addButton.innerText())
   }
 
@@ -46,7 +46,7 @@ export class ValuableItemDialog {
   @step('Verify the quote is higher than ${0} cents')
   async verifyQuoteHigherThan(cents: number): Promise<void> {
     await expect
-      .poll(() => this.quotedCents(), { message: `the quote is higher than ${cents} cents` })
+      .poll(() => this.getQuotedCents(), { message: `the quote is higher than ${cents} cents` })
       .toBeGreaterThan(cents)
   }
 

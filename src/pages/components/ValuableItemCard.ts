@@ -29,7 +29,7 @@ export class ValuableItemCard {
   // Actions
 
   @step('Open the add dialog for the item')
-  async add(): Promise<ValuableItemDialog> {
+  async startAdding(): Promise<ValuableItemDialog> {
     await this.addButton.click()
     return new ValuableItemDialog(this.page, valuableItemEntry(this.item).dialogHeading)
   }
@@ -61,9 +61,9 @@ export class ValuableItemCard {
   // Combined flows
 
   @step('Add the item at the default value and return the quoted cents')
-  async addAtDefaultValue(): Promise<number> {
-    const dialog = await this.add()
-    const quoted = await dialog.quotedCents()
+  async addAtDefaultValueAndGetQuotation(): Promise<number> {
+    const dialog = await this.startAdding()
+    const quoted = await dialog.getQuotedCents()
     await dialog.confirm()
     return quoted
   }

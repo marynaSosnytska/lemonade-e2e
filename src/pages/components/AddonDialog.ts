@@ -38,7 +38,7 @@ export class AddonDialog {
   }
 
   @step('Read the quoted monthly amount from the submit button')
-  async quotedCents(): Promise<number> {
+  async getQuotedCents(): Promise<number> {
     const text = await this.submitButton.innerText()
     return text.includes('$') ? toCents(text) : 0
   }

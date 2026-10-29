@@ -8,7 +8,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
     'annual billing costs 12 x monthly minus $12 and switching back restores the monthly price',
     { tag: '@smoke' },
     async ({ quotePage }) => {
-      const monthly = await quotePage.priceSummary.readCents()
+      const monthly = await quotePage.priceSummary.getPriceInCents()
 
       await quotePage.billing.chooseAnnual()
 
@@ -33,7 +33,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
 
   for (const { title, apply } of QUOTE_CHANGES) {
     test(`the annual price stays 12 x monthly minus $12 after ${title}`, async ({ quotePage }) => {
-      const before = await quotePage.priceSummary.readCents()
+      const before = await quotePage.priceSummary.getPriceInCents()
 
       await apply(quotePage)
 
@@ -41,7 +41,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
         await quotePage.priceSummary.verifyHigherThan(before)
       })
 
-      const monthly = await quotePage.priceSummary.readCents()
+      const monthly = await quotePage.priceSummary.getPriceInCents()
 
       await quotePage.billing.chooseAnnual()
 
@@ -56,8 +56,8 @@ test.describe('Billing period', { tag: '@billing' }, () => {
     quotePage,
   }) => {
     const row = quotePage.addon(AddonKey.EquipmentBreakdown)
-    const monthlyBefore = await quotePage.priceSummary.readCents()
-    const monthlyListed = await row.listedCents()
+    const monthlyBefore = await quotePage.priceSummary.getPriceInCents()
+    const monthlyListed = await row.getListedCents()
     const expectedYearly = yearlyFromMonthlyForAddon(monthlyListed)
 
     await test.step('in monthly mode the add-on row lists its monthly price', async () => {
@@ -76,7 +76,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
       await row.verifyListed(expectedYearly, Billing.Annual)
     })
 
-    await row.turnOn()
+    await row.turnOnAndGetQuotation()
 
     await test.step('the annual price grows by exactly the listed yearly amount', async () => {
       const annualAfter = annualBefore + expectedYearly

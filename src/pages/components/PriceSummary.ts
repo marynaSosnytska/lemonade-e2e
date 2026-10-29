@@ -16,7 +16,7 @@ export class PriceSummary {
   // Actions
 
   @step('Read the price from the Pay button')
-  async readCents(): Promise<number> {
+  async getPriceInCents(): Promise<number> {
     return toCents(await this.payButton.innerText())
   }
 
@@ -31,14 +31,14 @@ export class PriceSummary {
   @step('Verify the price is higher than ${0} cents')
   async verifyHigherThan(cents: number): Promise<void> {
     await expect
-      .poll(() => this.readCents(), { message: `the price is higher than ${cents} cents` })
+      .poll(() => this.getPriceInCents(), { message: `the price is higher than ${cents} cents` })
       .toBeGreaterThan(cents)
   }
 
   @step('Verify the price is lower than ${0} cents')
   async verifyLowerThan(cents: number): Promise<void> {
     await expect
-      .poll(() => this.readCents(), { message: `the price is lower than ${cents} cents` })
+      .poll(() => this.getPriceInCents(), { message: `the price is lower than ${cents} cents` })
       .toBeLessThan(cents)
   }
 

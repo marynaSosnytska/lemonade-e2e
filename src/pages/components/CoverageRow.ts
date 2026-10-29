@@ -46,10 +46,13 @@ export class CoverageRow {
 
   @step('Verify the coverage cannot go past its starting limit')
   async verifyAtStartingLimit(startsAt: CoverageStarts): Promise<void> {
-    if (startsAt === CoverageStarts.Max) {
-      await this.verifyIncreaseDisabled()
-    } else {
-      await this.verifyDecreaseDisabled()
+    switch (startsAt) {
+      case CoverageStarts.Max:
+        await this.verifyIncreaseDisabled()
+        break
+      case CoverageStarts.Min:
+        await this.verifyDecreaseDisabled()
+        break
     }
   }
 }

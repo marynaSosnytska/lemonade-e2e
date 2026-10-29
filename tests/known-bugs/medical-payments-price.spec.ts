@@ -14,7 +14,7 @@ test.describe('Known bugs', { tag: ['@known-bug', '@coverage'] }, () => {
     async ({ quotePage }) => {
       test.fail()
 
-      const before = await quotePage.priceSummary.readCents()
+      const before = await quotePage.priceSummary.getPriceInCents()
 
       await quotePage.coverage(Coverage.MedicalPayments).increase()
 

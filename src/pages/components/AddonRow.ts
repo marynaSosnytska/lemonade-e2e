@@ -44,7 +44,7 @@ export class AddonRow {
   }
 
   @step('Read the listed price from the row')
-  async listedCents(): Promise<number> {
+  async getListedCents(): Promise<number> {
     return toCents(await this.priceLabel.innerText())
   }
 
@@ -86,15 +86,15 @@ export class AddonRow {
   // Combined flows
 
   @step('Turn the add-on on, complete its form and return the quoted cents')
-  async turnOn(): Promise<number> {
+  async turnOnAndGetQuotation(): Promise<number> {
     await this.toggle()
     if (!this.dialog) {
-      return this.listedCents()
+      return this.getListedCents()
     }
     if (this.addon.formValues) {
       await this.dialog.fillForm(this.addon.formValues)
     }
-    const quoted = await this.dialog.quotedCents()
+    const quoted = await this.dialog.getQuotedCents()
     await this.dialog.submit()
     return quoted
   }

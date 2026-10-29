@@ -6,10 +6,10 @@ test.describe('Policy add-ons', { tag: '@addons' }, () => {
     test(`${addon.heading}: completing its form turns it on without changing the price, and turning it off keeps the price`, async ({
       quotePage,
     }) => {
-      const before = await quotePage.priceSummary.readCents()
+      const before = await quotePage.priceSummary.getPriceInCents()
       const row = quotePage.addon(addon.key)
 
-      await row.turnOn()
+      await row.turnOnAndGetQuotation()
 
       await test.step('the add-on is on and the price is unchanged', async () => {
         await row.verifyOn()
@@ -30,10 +30,10 @@ test.describe('Policy add-ons', { tag: '@addons' }, () => {
       `${addon.heading}: turning it on adds exactly its quoted price and turning it off restores the original`,
       { tag: '@smoke' },
       async ({ quotePage }) => {
-        const before = await quotePage.priceSummary.readCents()
+        const before = await quotePage.priceSummary.getPriceInCents()
         const row = quotePage.addon(addon.key)
 
-        const quoted = await row.turnOn()
+        const quoted = await row.turnOnAndGetQuotation()
         const expectedPrice = before + quoted
 
         await test.step('the add-on is on and the price grows by exactly its quoted amount', async () => {
@@ -54,7 +54,7 @@ test.describe('Policy add-ons', { tag: '@addons' }, () => {
   test('closing an add-on form without submitting leaves it off and the price unchanged', async ({
     quotePage,
   }) => {
-    const before = await quotePage.priceSummary.readCents()
+    const before = await quotePage.priceSummary.getPriceInCents()
     const row = quotePage.addon(AddonKey.SignificantOther)
 
     await row.toggle()

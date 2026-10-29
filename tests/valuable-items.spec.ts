@@ -12,10 +12,10 @@ test.describe('Valuable items', { tag: '@valuables' }, () => {
       `${item}: adding at the default value adds exactly the quoted amount and removing restores the price`,
       { tag: '@smoke' },
       async ({ quotePage }) => {
-        const before = await quotePage.priceSummary.readCents()
+        const before = await quotePage.priceSummary.getPriceInCents()
         const card = quotePage.valuableItem(item)
 
-        const quoted = await card.addAtDefaultValue()
+        const quoted = await card.addAtDefaultValueAndGetQuotation()
         const expectedPrice = before + quoted
 
         await test.step('the item is added and the price grows by exactly the quoted amount', async () => {
@@ -37,19 +37,19 @@ test.describe('Valuable items', { tag: '@valuables' }, () => {
     quotePage,
   }) => {
     const itemToTest = ValuableItem.Jewelry
-    const before = await quotePage.priceSummary.readCents()
+    const before = await quotePage.priceSummary.getPriceInCents()
     const card = quotePage.valuableItem(itemToTest)
     const higherValue = DEFAULT_VALUABLE_VALUE + VALUABLE_VALUE_STEP
-    const dialog = await card.add()
+    const dialog = await card.startAdding()
 
-    const quoteAtDefault = await dialog.quotedCents()
+    const quoteAtDefault = await dialog.getQuotedCents()
     await dialog.increaseValue()
 
     await test.step('a higher declared value is quoted at a higher price', async () => {
       await dialog.verifyQuoteHigherThan(quoteAtDefault)
     })
 
-    const quoteAtHigher = await dialog.quotedCents()
+    const quoteAtHigher = await dialog.getQuotedCents()
 
     await dialog.confirm()
     const expectedPrice = before + quoteAtHigher
@@ -61,9 +61,9 @@ test.describe('Valuable items', { tag: '@valuables' }, () => {
   })
 
   test('cancelling the removal keeps the item and the price', async ({ quotePage }) => {
-    const before = await quotePage.priceSummary.readCents()
+    const before = await quotePage.priceSummary.getPriceInCents()
     const card = quotePage.valuableItem(ValuableItem.Jewelry)
-    const quoted = await card.addAtDefaultValue()
+    const quoted = await card.addAtDefaultValueAndGetQuotation()
     const expectedPrice = before + quoted
 
     await card.startRemoval()

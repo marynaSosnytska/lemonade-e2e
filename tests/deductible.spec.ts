@@ -7,7 +7,7 @@ test.describe('Deductible', { tag: '@deductible' }, () => {
     'price strictly falls as the deductible rises and the default restores the original price',
     { tag: '@smoke' },
     async ({ quotePage }) => {
-      const initialPrice = await quotePage.priceSummary.readCents()
+      const initialPrice = await quotePage.priceSummary.getPriceInCents()
 
       const higherDeductibles = DEDUCTIBLES.filter((d) => d > DEFAULT_DEDUCTIBLE)
 
@@ -19,7 +19,7 @@ test.describe('Deductible', { tag: '@deductible' }, () => {
           await quotePage.deductible.verifySelected(deductible)
           await quotePage.priceSummary.verifyLowerThan(before)
 
-          before = await quotePage.priceSummary.readCents()
+          before = await quotePage.priceSummary.getPriceInCents()
         })
       }
 
@@ -35,7 +35,7 @@ test.describe('Deductible', { tag: '@deductible' }, () => {
     'price strictly rises as the deductible falls and the default restores the original price',
     { tag: '@smoke' },
     async ({ quotePage }) => {
-      const initialPrice = await quotePage.priceSummary.readCents()
+      const initialPrice = await quotePage.priceSummary.getPriceInCents()
 
       const lowerDeductibles = DEDUCTIBLES.filter((d) => d < DEFAULT_DEDUCTIBLE)
 
@@ -47,7 +47,7 @@ test.describe('Deductible', { tag: '@deductible' }, () => {
           await quotePage.deductible.verifySelected(deductible)
           await quotePage.priceSummary.verifyHigherThan(before)
 
-          before = await quotePage.priceSummary.readCents()
+          before = await quotePage.priceSummary.getPriceInCents()
         })
       }
 
