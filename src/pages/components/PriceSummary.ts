@@ -3,6 +3,8 @@ import { step } from '@framework/step-decorator'
 import { Billing, payText, toCents } from '@data/money'
 
 export class PriceSummary {
+  // The page has a hero Pay button, a sticky header copy and one in the Activate section, and only
+  // the hero one sits in baseQuoteTopWrapper, so this scope stays unique before and after scrolling.
   readonly payButton: Locator
 
   constructor(page: Page) {
