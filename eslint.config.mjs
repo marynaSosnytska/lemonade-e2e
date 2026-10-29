@@ -50,4 +50,5 @@ export default [
         { object: 'test', property: 'only', message: 'test.only must not be committed.' },
       ],
     },
-  }]
+  },
+]
