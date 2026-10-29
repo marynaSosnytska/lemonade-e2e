@@ -11,6 +11,7 @@ import { ConfirmDialog } from './components/ConfirmDialog'
 import { CoverageRow } from './components/CoverageRow'
 import { DeductibleSelect } from './components/DeductibleSelect'
 import { PriceSummary } from './components/PriceSummary'
+import { StartDatePicker } from './components/StartDatePicker'
 import { ValuableItemCard } from './components/ValuableItemCard'
 
 export class QuotePage extends BasePage {
@@ -22,6 +23,17 @@ export class QuotePage extends BasePage {
   readonly valuableItem = (item: ValuableItem): ValuableItemCard =>
     new ValuableItemCard(this.page, item)
   readonly addon = (key: AddonKey): AddonRow => new AddonRow(this.page, addonEntry(key))
+  readonly heroStartDate = new StartDatePicker(
+    this.page.getByTestId('baseQuoteTopWrapper').getByTestId('select')
+  )
+  readonly activateStartDate = new StartDatePicker(
+    this.page
+      .locator('div')
+      .filter({ has: this.page.getByRole('heading', { name: 'Activate Your Insurance' }) })
+      .filter({ has: this.page.getByTestId('select') })
+      .last()
+      .getByTestId('select')
+  )
   readonly acceptCookies: Locator = this.page.getByRole('button', { name: 'Accept all' })
   readonly activateHeading: Locator = this.page.getByRole('heading', {
     name: 'Activate Your Insurance',
