@@ -16,3 +16,7 @@ export const COVERAGES: CoverageStart[] = [
   { name: Coverage.LossOfUse, startsAt: 'min' },
   { name: Coverage.MedicalPayments, startsAt: 'min' },
 ]
+
+export const DEDUCTIBLES: number[] = [250, 500, 1_000, 2_500]
+
+export const DEFAULT_DEDUCTIBLE = 500
