@@ -1,3 +1,6 @@
+import type { QuotePage } from '@pages/QuotePage'
+import { dollarsText } from '@data/money'
+
 export enum Coverage {
   PersonalProperty = 'Personal Property',
   PersonalLiability = 'Personal Liability',
@@ -17,9 +20,12 @@ export const COVERAGES: CoverageStart[] = [
   { name: Coverage.MedicalPayments, startsAt: 'min' },
 ]
 
-export const DEDUCTIBLES: number[] = [250, 500, 1_000, 2_500]
-
+export const LOWEST_DEDUCTIBLE = 250
 export const DEFAULT_DEDUCTIBLE = 500
+
+export const DEDUCTIBLES: number[] = [LOWEST_DEDUCTIBLE, DEFAULT_DEDUCTIBLE, 1_000, 2_500]
+
+
 
 export enum ValuableItem {
   Jewelry = 'jewelry',
@@ -215,5 +221,27 @@ export const SPOUSE_VALID: FormCase[] = [
   {
     title: 'Email is a valid address',
     values: { ...SPOUSE_BASELINE, 'Email (optional)': 'jane@example.com' },
+  },
+]
+
+export type QuoteChange = {
+  title: string
+  apply: (quotePage: QuotePage) => Promise<void>
+}
+
+export const QUOTE_CHANGES: QuoteChange[] = [
+  {
+    title: 'adding Equipment Breakdown',
+    apply: async (quotePage) => {
+      await quotePage.addon(AddonKey.EquipmentBreakdown).turnOn()
+    },
+  },
+  {
+    title: `choosing the ${dollarsText(LOWEST_DEDUCTIBLE)} deductible`,
+    apply: (quotePage) => quotePage.deductible.choose(LOWEST_DEDUCTIBLE),
+  },
+  {
+    title: 'raising Personal Liability',
+    apply: (quotePage) => quotePage.coverage(Coverage.PersonalLiability).increase(),
   },
 ]

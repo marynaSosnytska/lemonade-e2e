@@ -1,5 +1,13 @@
 import { test, expect } from '@fixtures/test'
-import { Billing, annualFromMonthly, dollarsText, payText, priceText, toCents } from '@data/money'
+import {
+  Billing,
+  annualFromMonthly,
+  dollarsText,
+  payText,
+  priceText,
+  toCents,
+  yearlyFromMonthly,
+} from '@data/money'
 
 test.describe('Money helpers', { tag: '@unit' }, () => {
   for (const [input, cents] of [
@@ -49,6 +57,14 @@ test.describe('Money helpers', { tag: '@unit' }, () => {
 
     await test.step('whole dollars render with thousands grouping', () => {
       expect(dollarsText(2_500), '2_500 dollars is $2,500').toBe('$2,500')
+    })
+  })
+
+  test('yearlyFromMonthly multiplies a monthly amount by twelve', async () => {
+    await test.step('the yearly amount is the monthly amount times 12', () => {
+      const monthlyCents = 300
+      const yearlyCents = 3_600
+      expect(yearlyFromMonthly(monthlyCents), 'yearly amount for $3.00 / month').toBe(yearlyCents)
     })
   })
 

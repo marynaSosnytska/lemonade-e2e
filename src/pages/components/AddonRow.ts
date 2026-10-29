@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { step } from '@framework/step-decorator'
-import { toCents } from '@data/money'
+import { Billing, priceText, toCents } from '@data/money'
 import type { Addon, FormValues } from '@data/quote-options'
 import { AddonDialog } from './AddonDialog'
 import { ConfirmDialog } from './ConfirmDialog'
@@ -49,6 +49,13 @@ export class AddonRow {
   }
 
   // Verifications
+
+  @step('Verify the row lists ${0} cents')
+  async verifyListed(cents: number, billing: Billing = Billing.Monthly) {
+    const suffix = billing === Billing.Annual ? 'YR' : 'MO'
+    const expectedText = `+${priceText(cents)}/${suffix}`
+    await expect(this.priceLabel, `the row lists ${expectedText}`).toContainText(expectedText)
+  }
 
   @step('Verify the add-on form can be submitted')
   async verifyCanSubmit() {
