@@ -5,7 +5,7 @@ import playwright from 'eslint-plugin-playwright'
 export default [
   { ignores: ['node_modules/', 'playwright-report/', 'test-results/'] },
   eslint.configs.recommended,
-  tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
