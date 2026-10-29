@@ -51,8 +51,8 @@ export class AddonDialog {
   }
 
   @step('Verify the form cannot be submitted')
-  async verifyCannotSubmit() {
-    await expect(this.submitButton, 'the submit button is disabled').toBeDisabled()
+  async verifyCannotSubmit(timeout?: number) {
+    await expect(this.submitButton, 'the submit button is disabled').toBeDisabled({ timeout })
   }
 
   @step('Verify the form is closed')

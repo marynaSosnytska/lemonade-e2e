@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { step } from '@framework/step-decorator'
 import { toCents } from '@data/money'
-import type { Addon } from '@data/quote-options'
+import type { Addon, FormValues } from '@data/quote-options'
 import { AddonDialog } from './AddonDialog'
 import { ConfirmDialog } from './ConfirmDialog'
 
@@ -35,10 +35,12 @@ export class AddonRow {
 
   @step('Close the add-on form without submitting')
   async closeForm() {
-    if (!this.dialog) {
-      throw new Error(`Add-on "${this.addon.key}" has no form to close`)
-    }
-    await this.dialog.close()
+    await this.form().close()
+  }
+
+  @step('Fill the add-on form fields ${0}')
+  async fillForm(values: FormValues) {
+    await this.form().fillForm(values)
   }
 
   @step('Read the listed price from the row')
@@ -47,6 +49,16 @@ export class AddonRow {
   }
 
   // Verifications
+
+  @step('Verify the add-on form can be submitted')
+  async verifyCanSubmit() {
+    await this.form().verifyCanSubmit()
+  }
+
+  @step('Verify the add-on form cannot be submitted')
+  async verifyCannotSubmit(timeout?: number) {
+    await this.form().verifyCannotSubmit(timeout)
+  }
 
   @step('Verify the add-on is on')
   async verifyOn() {
@@ -84,5 +96,12 @@ export class AddonRow {
   async turnOff() {
     await this.toggle()
     await this.confirmDialog.yes()
+  }
+
+  private form(): AddonDialog {
+    if (!this.dialog) {
+      throw new Error(`Add-on "${this.addon.key}" has no form`)
+    }
+    return this.dialog
   }
 }

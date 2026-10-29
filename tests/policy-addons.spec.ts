@@ -28,7 +28,7 @@ test.describe('Policy add-ons', { tag: '@addons' }, () => {
   for (const addon of ADDONS.filter((a) => a.pricing === 'paid')) {
     test(
       `${addon.heading}: turning it on adds exactly its quoted price and turning it off restores the original`,
-      {tag: '@smoke'},
+      { tag: '@smoke' },
       async ({ quotePage }) => {
         const before = await quotePage.priceSummary.readCents()
         const row = quotePage.addon(addon.key)
