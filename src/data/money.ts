@@ -33,10 +33,10 @@ export function dollarsText(dollars: number): string {
   return `$${dollars.toLocaleString('en-US')}`
 }
 
-export function yearlyFromMonthly(monthlyCents: number): number {
+export function yearlyFromMonthlyForAddon(monthlyCents: number): number {
   return monthlyCents * 12
 }
 
-export function annualFromMonthly(monthlyCents: number): number {
+export function annualFromMonthlyTotal(monthlyCents: number): number {
   return monthlyCents * 12 - ANNUAL_DISCOUNT_CENTS
 }

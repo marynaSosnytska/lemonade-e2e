@@ -1,12 +1,12 @@
 import { test, expect } from '@fixtures/test'
 import {
   Billing,
-  annualFromMonthly,
+  annualFromMonthlyTotal,
   dollarsText,
   payText,
   priceText,
   toCents,
-  yearlyFromMonthly,
+  yearlyFromMonthlyForAddon,
 } from '@data/money'
 
 test.describe('Money helpers', { tag: '@unit' }, () => {
@@ -64,7 +64,7 @@ test.describe('Money helpers', { tag: '@unit' }, () => {
     await test.step('the yearly amount is the monthly amount times 12', () => {
       const monthlyCents = 300
       const yearlyCents = 3_600
-      expect(yearlyFromMonthly(monthlyCents), 'yearly amount for $3.00 / month').toBe(yearlyCents)
+      expect(yearlyFromMonthlyForAddon(monthlyCents), 'yearly amount for $3.00 / month').toBe(yearlyCents)
     })
   })
 
@@ -72,7 +72,7 @@ test.describe('Money helpers', { tag: '@unit' }, () => {
     await test.step('the annual price is the monthly price times 12 minus $12', () => {
       const monthlyCents = 1_433
       const annualCents = 15_996
-      expect(annualFromMonthly(monthlyCents), 'annual price for $14.33 / month').toBe(annualCents)
+      expect(annualFromMonthlyTotal(monthlyCents), 'annual price for $14.33 / month').toBe(annualCents)
     })
   })
 })

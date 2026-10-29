@@ -1,5 +1,5 @@
 import { test } from '@fixtures/test'
-import { Billing, annualFromMonthly, yearlyFromMonthly } from '@data/money'
+import { Billing, annualFromMonthlyTotal, yearlyFromMonthlyForAddon } from '@data/money'
 import { AddonKey, QUOTE_CHANGES } from '@data/quote-options'
 
 test.describe('Billing period', { tag: '@billing' }, () => {
@@ -12,7 +12,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
       await quotePage.billing.chooseAnnual()
 
       await test.step('the annual price is 12 monthly payments minus $12', async () => {
-        const annual = annualFromMonthly(monthly)
+        const annual = annualFromMonthlyTotal(monthly)
         await quotePage.priceSummary.verifyPrice(annual, Billing.Annual)
       })
 
@@ -45,7 +45,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
       await quotePage.billing.chooseAnnual()
 
       await test.step('the annual price is still 12 monthly payments minus $12', async () => {
-        const annual = annualFromMonthly(monthly)
+        const annual = annualFromMonthlyTotal(monthly)
         await quotePage.priceSummary.verifyPrice(annual, Billing.Annual)
       })
     })
@@ -57,7 +57,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
     const row = quotePage.addon(AddonKey.EquipmentBreakdown)
     const monthlyBefore = await quotePage.priceSummary.readCents()
     const monthlyListed = await row.listedCents()
-    const expectedYearly = yearlyFromMonthly(monthlyListed)
+    const expectedYearly = yearlyFromMonthlyForAddon(monthlyListed)
 
     await test.step('in monthly mode the add-on row lists its monthly price', async () => {
       await row.verifyListed(monthlyListed, Billing.Monthly)
@@ -65,7 +65,7 @@ test.describe('Billing period', { tag: '@billing' }, () => {
 
     await quotePage.billing.chooseAnnual()
 
-    const annualBefore = annualFromMonthly(monthlyBefore)
+    const annualBefore = annualFromMonthlyTotal(monthlyBefore)
 
     await test.step('the annual price before the add-on is 12 monthly payments minus $12', async () => {
       await quotePage.priceSummary.verifyPrice(annualBefore, Billing.Annual)
