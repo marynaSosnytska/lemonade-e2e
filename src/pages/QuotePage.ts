@@ -1,8 +1,9 @@
 import type { Locator } from '@playwright/test'
 import { env } from '@config/env'
 import { step } from '@framework/step-decorator'
-import type { Coverage, ValuableItem } from '@data/quote-options'
+import { type AddonKey, type Coverage, type ValuableItem, addonEntry } from '@data/quote-options'
 import { BasePage } from './BasePage'
+import { AddonRow } from './components/AddonRow'
 import { BillingToggle } from './components/BillingToggle'
 import { ConfirmDialog } from './components/ConfirmDialog'
 import { CoverageRow } from './components/CoverageRow'
@@ -17,6 +18,7 @@ export class QuotePage extends BasePage {
   readonly confirmDialog = new ConfirmDialog(this.page)
   readonly coverage = (name: Coverage) => new CoverageRow(this.page, name)
   readonly valuableItem = (item: ValuableItem) => new ValuableItemCard(this.page, item)
+  readonly addon = (key: AddonKey) => new AddonRow(this.page, addonEntry(key))
   readonly acceptCookies: Locator = this.page.getByRole('button', { name: 'Accept all' })
   readonly activateHeading: Locator = this.page.getByRole('heading', {
     name: 'Activate Your Insurance',

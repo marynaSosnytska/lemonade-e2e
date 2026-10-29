@@ -62,3 +62,71 @@ export function valuableItemEntry(item: ValuableItem): ValuableItemEntry {
   }
   return entry
 }
+
+export enum AddonKey {
+  InterestedParty = 'interested_party',
+  Spouse = 'secondary_insured',
+  SignificantOther = 'other_members_of_household',
+  WaterBackup = 'water_backup',
+  LandlordPropertyDamage = 'landlord_property_damage',
+  EquipmentBreakdown = 'equipment_breakdown',
+}
+
+export type FormValues = Record<string, string>
+
+export type Addon = {
+  key: AddonKey
+  heading: string
+  pricing: 'free' | 'paid'
+  dialogHeading?: string
+  formValues?: FormValues
+}
+
+export const ADDONS: Addon[] = [
+  {
+    key: AddonKey.InterestedParty,
+    heading: 'Interested party/Landlord',
+    pricing: 'free',
+    dialogHeading: 'add an interested party',
+    formValues: { Name: 'Acme Properties', Address: '1 Main St', Email: 'landlord@example.com' },
+  },
+  {
+    key: AddonKey.Spouse,
+    heading: 'Spouse',
+    pricing: 'free',
+    dialogHeading: 'Add your spouse',
+    formValues: { 'First name': 'Jane', 'Last name': 'Doe' },
+  },
+  {
+    key: AddonKey.SignificantOther,
+    heading: 'Significant other',
+    pricing: 'paid',
+    dialogHeading: 'add your significant other',
+    formValues: { 'First name': 'Jane', 'Last name': 'Doe' },
+  },
+  {
+    key: AddonKey.WaterBackup,
+    heading: 'WATER BACK-UP',
+    pricing: 'paid',
+    dialogHeading: 'Water Back-Up',
+  },
+  {
+    key: AddonKey.LandlordPropertyDamage,
+    heading: 'LANDLORD PROPERTY DAMAGE',
+    pricing: 'paid',
+    dialogHeading: 'LANDLORD PROPERTY DAMAGE',
+  },
+  {
+    key: AddonKey.EquipmentBreakdown,
+    heading: 'Appliance (a.k.a. Equipment) Breakdown',
+    pricing: 'paid',
+  },
+]
+
+export function addonEntry(key: AddonKey): Addon {
+  const entry = ADDONS.find((a) => a.key === key)
+  if (!entry) {
+    throw new Error(`No add-on entry for "${key}"`)
+  }
+  return entry
+}

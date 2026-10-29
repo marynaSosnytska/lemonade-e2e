@@ -9,27 +9,29 @@ import {
 
 test.describe('Valuable items', { tag: '@valuables' }, () => {
   for (const { item } of VALUABLE_ITEMS) {
-    test(`${item}: adding at the default value adds exactly the quoted amount and removing restores the price`, {tag: '@smoke'}, async ({
-      quotePage,
-    }) => {
-      const before = await quotePage.priceSummary.readCents()
-      const card = quotePage.valuableItem(item)
+    test(
+      `${item}: adding at the default value adds exactly the quoted amount and removing restores the price`,
+      { tag: '@smoke' },
+      async ({ quotePage }) => {
+        const before = await quotePage.priceSummary.readCents()
+        const card = quotePage.valuableItem(item)
 
-      const quoted = await card.addAtDefaultValue()
-      const expectedPrice = before + quoted
+        const quoted = await card.addAtDefaultValue()
+        const expectedPrice = before + quoted
 
-      await test.step('the item is added and the price grows by exactly the quoted amount', async () => {
-        await card.verifyAdded(DEFAULT_VALUABLE_VALUE)
-        await quotePage.priceSummary.verifyPrice(expectedPrice)
-      })
+        await test.step('the item is added and the price grows by exactly the quoted amount', async () => {
+          await card.verifyAdded(DEFAULT_VALUABLE_VALUE)
+          await quotePage.priceSummary.verifyPrice(expectedPrice)
+        })
 
-      await card.remove()
+        await card.remove()
 
-      await test.step('the item is gone and the price returns to the original', async () => {
-        await card.verifyNotAdded()
-        await quotePage.priceSummary.verifyPrice(before)
-      })
-    })
+        await test.step('the item is gone and the price returns to the original', async () => {
+          await card.verifyNotAdded()
+          await quotePage.priceSummary.verifyPrice(before)
+        })
+      }
+    )
   }
 
   test('a higher declared value quotes more and the total grows by that quote', async ({
