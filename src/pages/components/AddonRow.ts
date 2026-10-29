@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { step } from '@framework/step-decorator'
 import { Billing, priceText, toCents } from '@data/money'
-import type { Addon, FormValues } from '@data/quote-options'
+import type { Addon, FormValues } from '@data/addons'
 import { AddonDialog } from './AddonDialog'
 import { ConfirmDialog } from './ConfirmDialog'
 

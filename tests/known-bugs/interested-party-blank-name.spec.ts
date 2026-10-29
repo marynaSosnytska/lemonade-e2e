@@ -1,5 +1,6 @@
 import { test } from '@fixtures/test'
-import { AddonKey, INTERESTED_PARTY_BASELINE } from '@data/quote-options'
+import { AddonKey } from '@data/addons'
+import { INTERESTED_PARTY_BASELINE } from '@data/addon-forms'
 
 test.describe('Known bugs', { tag: ['@known-bug', '@forms'] }, () => {
   test(

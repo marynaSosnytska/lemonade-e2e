@@ -1,5 +1,5 @@
 import { test } from '@fixtures/test'
-import { Coverage } from '@data/quote-options'
+import { Coverage } from '@data/coverage'
 
 test.describe('Known bugs', { tag: ['@known-bug', '@coverage'] }, () => {
   test(

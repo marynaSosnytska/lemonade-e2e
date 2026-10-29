@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { step } from '@framework/step-decorator'
 import { toCents } from '@data/money'
-import type { FormValues } from '@data/quote-options'
+import type { FormValues } from '@data/addons'
 
 export class AddonDialog {
   readonly dialog: Locator

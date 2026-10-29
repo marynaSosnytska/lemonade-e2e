@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { step } from '@framework/step-decorator'
 import { dollarsText } from '@data/money'
-import { type ValuableItem, valuableItemEntry } from '@data/quote-options'
+import { type ValuableItem, valuableItemEntry } from '@data/valuable-items'
 import { ConfirmDialog } from './ConfirmDialog'
 import { ValuableItemDialog } from './ValuableItemDialog'
 
@@ -64,7 +64,7 @@ export class ValuableItemCard {
   async addAtDefaultValue(): Promise<number> {
     const dialog = await this.add()
     const quoted = await dialog.quotedCents()
-    await dialog.confirm(valuableItemEntry(this.item).hasNotice)
+    await dialog.confirm()
     return quoted
   }
 

@@ -1,13 +1,13 @@
 import { test } from '@fixtures/test'
+import { AddonKey } from '@data/addons'
 import {
-  AddonKey,
   INTERESTED_PARTY_BASELINE,
   INTERESTED_PARTY_INVALID,
   INTERESTED_PARTY_VALID,
   SPOUSE_BASELINE,
   SPOUSE_INVALID,
   SPOUSE_VALID,
-} from '@data/quote-options'
+} from '@data/addon-forms'
 
 test.describe('Add-on forms', { tag: '@forms' }, () => {
   for (const { title, values } of INTERESTED_PARTY_INVALID) {

@@ -1,6 +1,6 @@
 import { test } from '@fixtures/test'
 import { Billing } from '@data/money'
-import { COVERAGES, Coverage } from '@data/quote-options'
+import { COVERAGES, Coverage } from '@data/coverage'
 
 test.describe('Coverage amounts', { tag: '@coverage' }, () => {
   test(

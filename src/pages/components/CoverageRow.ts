@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test'
 import { step } from '@framework/step-decorator'
-import type { Coverage, CoverageStart } from '@data/quote-options'
+import { CoverageStarts, type Coverage } from '@data/coverage'
 
 export class CoverageRow {
   readonly row: Locator
@@ -45,8 +45,8 @@ export class CoverageRow {
   }
 
   @step('Verify the coverage cannot go past its starting limit')
-  async verifyAtStartingLimit(startsAt: CoverageStart['startsAt']) {
-    if (startsAt === 'max') {
+  async verifyAtStartingLimit(startsAt: CoverageStarts) {
+    if (startsAt === CoverageStarts.Max) {
       await this.verifyIncreaseDisabled()
     } else {
       await this.verifyDecreaseDisabled()

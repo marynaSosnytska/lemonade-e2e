@@ -58,11 +58,9 @@ export class ValuableItemDialog {
   // Combined flows
 
   @step('Confirm the item')
-  async confirm(hasNotice: boolean) {
+  async confirm() {
     await this.addButton.click()
-    if (hasNotice) {
-      await this.verifyNoticeShown()
-      await this.gotItButton.click()
-    }
+    await this.verifyNoticeShown()
+    await this.gotItButton.click()
   }
 }

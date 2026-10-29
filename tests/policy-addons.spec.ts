@@ -1,8 +1,8 @@
 import { test } from '@fixtures/test'
-import { ADDONS, AddonKey } from '@data/quote-options'
+import { ADDONS, AddonKey, PricingType } from '@data/addons'
 
 test.describe('Policy add-ons', { tag: '@addons' }, () => {
-  for (const addon of ADDONS.filter((a) => a.pricing === 'free')) {
+  for (const addon of ADDONS.filter((a) => a.pricing === PricingType.Free)) {
     test(`${addon.heading}: completing its form turns it on without changing the price, and turning it off keeps the price`, async ({
       quotePage,
     }) => {
@@ -25,7 +25,7 @@ test.describe('Policy add-ons', { tag: '@addons' }, () => {
     })
   }
 
-  for (const addon of ADDONS.filter((a) => a.pricing === 'paid')) {
+  for (const addon of ADDONS.filter((a) => a.pricing === PricingType.Paid)) {
     test(
       `${addon.heading}: turning it on adds exactly its quoted price and turning it off restores the original`,
       { tag: '@smoke' },

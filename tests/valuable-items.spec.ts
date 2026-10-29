@@ -4,8 +4,7 @@ import {
   VALUABLE_ITEMS,
   VALUABLE_VALUE_STEP,
   ValuableItem,
-  valuableItemEntry,
-} from '@data/quote-options'
+} from '@data/valuable-items'
 
 test.describe('Valuable items', { tag: '@valuables' }, () => {
   for (const { item } of VALUABLE_ITEMS) {
@@ -52,8 +51,7 @@ test.describe('Valuable items', { tag: '@valuables' }, () => {
 
     const quoteAtHigher = await dialog.quotedCents()
 
-    const hasNotice = valuableItemEntry(itemToTest).hasNotice
-    await dialog.confirm(hasNotice)
+    await dialog.confirm()
     const expectedPrice = before + quoteAtHigher
 
     await test.step('the price grows by the higher quote', async () => {

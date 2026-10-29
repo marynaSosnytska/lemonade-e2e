@@ -1,6 +1,7 @@
 import { test } from '@fixtures/test'
 import { Billing, annualFromMonthlyTotal, yearlyFromMonthlyForAddon } from '@data/money'
-import { AddonKey, QUOTE_CHANGES } from '@data/quote-options'
+import { AddonKey } from '@data/addons'
+import { QUOTE_CHANGES } from '@data/quote-changes'
 
 test.describe('Billing period', { tag: '@billing' }, () => {
   test(
