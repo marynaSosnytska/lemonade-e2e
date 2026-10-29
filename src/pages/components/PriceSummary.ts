@@ -23,27 +23,27 @@ export class PriceSummary {
   // Verifications
 
   @step('Verify the price is ${0} cents')
-  async verifyPrice(cents: number, billing: Billing = Billing.Monthly) {
+  async verifyPrice(cents: number, billing: Billing = Billing.Monthly): Promise<void> {
     const expectedText = payText(cents, billing)
     await expect(this.payButton, `the Pay button shows ${expectedText}`).toHaveText(expectedText)
   }
 
   @step('Verify the price is higher than ${0} cents')
-  async verifyHigherThan(cents: number) {
+  async verifyHigherThan(cents: number): Promise<void> {
     await expect
       .poll(() => this.readCents(), { message: `the price is higher than ${cents} cents` })
       .toBeGreaterThan(cents)
   }
 
   @step('Verify the price is lower than ${0} cents')
-  async verifyLowerThan(cents: number) {
+  async verifyLowerThan(cents: number): Promise<void> {
     await expect
       .poll(() => this.readCents(), { message: `the price is lower than ${cents} cents` })
       .toBeLessThan(cents)
   }
 
   @step('Verify the price is shown')
-  async verifyShown() {
+  async verifyShown(): Promise<void> {
     await expect(this.payButton, 'the Pay button is visible').toBeVisible()
   }
 }

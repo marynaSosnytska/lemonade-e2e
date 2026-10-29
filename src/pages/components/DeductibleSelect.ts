@@ -19,7 +19,7 @@ export class DeductibleSelect {
   // Actions
 
   @step('Choose a deductible of ${0} dollars')
-  async choose(dollars: number) {
+  async choose(dollars: number): Promise<void> {
     await this.header.click()
     await this.option(dollars).click()
   }
@@ -27,7 +27,7 @@ export class DeductibleSelect {
   // Verifications
 
   @step('Verify the deductible is ${0} dollars')
-  async verifySelected(dollars: number) {
+  async verifySelected(dollars: number): Promise<void> {
     await expect(this.header, `the deductible shows ${dollarsText(dollars)}`).toHaveText(
       dollarsText(dollars)
     )

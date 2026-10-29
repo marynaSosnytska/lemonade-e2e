@@ -18,12 +18,12 @@ export class BillingToggle {
   // Actions
 
   @step('Choose annual billing')
-  async chooseAnnual() {
+  async chooseAnnual(): Promise<void> {
     await this.annualLabel.click()
   }
 
   @step('Choose monthly billing')
-  async chooseMonthly() {
+  async chooseMonthly(): Promise<void> {
     await this.monthlyLabel.click()
   }
 }

@@ -35,14 +35,14 @@ export class ValuableItemCard {
   }
 
   @step('Start removing the item')
-  async startRemoval() {
+  async startRemoval(): Promise<void> {
     await this.deleteButton.click()
   }
 
   // Verifications
 
   @step('Verify the item is added with a declared value of ${0} dollars')
-  async verifyAdded(valueDollars: number) {
+  async verifyAdded(valueDollars: number): Promise<void> {
     await expect(
       this.declaredValue(valueDollars),
       `the card shows a declared value of ${dollarsText(valueDollars)}`
@@ -52,7 +52,7 @@ export class ValuableItemCard {
   }
 
   @step('Verify the item is not added')
-  async verifyNotAdded() {
+  async verifyNotAdded(): Promise<void> {
     await expect(this.addButton, 'the card offers adding again').toBeVisible()
     await expect(this.deleteButton, 'the card no longer offers removal').toBeHidden()
     await expect(this.editButton, 'the card no longer offers editing').toBeHidden()
@@ -69,7 +69,7 @@ export class ValuableItemCard {
   }
 
   @step('Remove the item and confirm')
-  async remove() {
+  async remove(): Promise<void> {
     await this.startRemoval()
     await this.confirmDialog.yes()
   }

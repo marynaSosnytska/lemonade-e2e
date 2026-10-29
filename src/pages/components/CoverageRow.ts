@@ -23,29 +23,29 @@ export class CoverageRow {
   // Actions
 
   @step('Increase the coverage by one step')
-  async increase() {
+  async increase(): Promise<void> {
     await this.increaseButton.click()
   }
 
   @step('Decrease the coverage by one step')
-  async decrease() {
+  async decrease(): Promise<void> {
     await this.decreaseButton.click()
   }
 
   // Verifications
 
   @step('Verify the coverage cannot be increased')
-  async verifyIncreaseDisabled() {
+  async verifyIncreaseDisabled(): Promise<void> {
     await expect(this.increaseButton, 'increase is disabled at the maximum').toBeDisabled()
   }
 
   @step('Verify the coverage cannot be decreased')
-  async verifyDecreaseDisabled() {
+  async verifyDecreaseDisabled(): Promise<void> {
     await expect(this.decreaseButton, 'decrease is disabled at the minimum').toBeDisabled()
   }
 
   @step('Verify the coverage cannot go past its starting limit')
-  async verifyAtStartingLimit(startsAt: CoverageStarts) {
+  async verifyAtStartingLimit(startsAt: CoverageStarts): Promise<void> {
     if (startsAt === CoverageStarts.Max) {
       await this.verifyIncreaseDisabled()
     } else {

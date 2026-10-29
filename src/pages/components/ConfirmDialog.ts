@@ -17,19 +17,19 @@ export class ConfirmDialog {
   // Actions
 
   @step('Confirm with Yes')
-  async yes() {
+  async yes(): Promise<void> {
     await this.yesButton.click()
   }
 
   @step('Dismiss with Cancel')
-  async cancel() {
+  async cancel(): Promise<void> {
     await this.cancelButton.click()
   }
 
   // Verifications
 
   @step('Verify the confirmation dialog is closed')
-  async verifyClosed() {
+  async verifyClosed(): Promise<void> {
     await expect(this.yesButton, 'the confirmation dialog is gone').toBeHidden()
   }
 }

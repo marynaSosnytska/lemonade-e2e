@@ -12,12 +12,21 @@ export default [
     },
     rules: {
       '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
+        {
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true,
+          allowHigherOrderFunctions: false,
+        },
+      ],
     },
   },
   { files: ['**/*.mjs'], ...tseslint.configs.disableTypeChecked },
   {
     files: ['src/framework/step-decorator.ts'],
     rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',

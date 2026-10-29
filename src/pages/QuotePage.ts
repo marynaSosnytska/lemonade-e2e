@@ -18,9 +18,10 @@ export class QuotePage extends BasePage {
   readonly billing = new BillingToggle(this.page)
   readonly deductible = new DeductibleSelect(this.page)
   readonly confirmDialog = new ConfirmDialog(this.page)
-  readonly coverage = (name: Coverage) => new CoverageRow(this.page, name)
-  readonly valuableItem = (item: ValuableItem) => new ValuableItemCard(this.page, item)
-  readonly addon = (key: AddonKey) => new AddonRow(this.page, addonEntry(key))
+  readonly coverage = (name: Coverage): CoverageRow => new CoverageRow(this.page, name)
+  readonly valuableItem = (item: ValuableItem): ValuableItemCard =>
+    new ValuableItemCard(this.page, item)
+  readonly addon = (key: AddonKey): AddonRow => new AddonRow(this.page, addonEntry(key))
   readonly acceptCookies: Locator = this.page.getByRole('button', { name: 'Accept all' })
   readonly activateHeading: Locator = this.page.getByRole('heading', {
     name: 'Activate Your Insurance',
@@ -29,14 +30,14 @@ export class QuotePage extends BasePage {
   // Actions
 
   @step('Open the quote and accept cookies')
-  async open() {
+  async open(): Promise<void> {
     await this.page.goto(`quotes/${env.QUOTE_ID}`)
     await this.acceptCookies.click()
     await this.acceptCookies.waitFor({ state: 'hidden' })
   }
 
   @step('Scroll to the Activate Your Insurance section')
-  async scrollToActivate() {
+  async scrollToActivate(): Promise<void> {
     await this.activateHeading.scrollIntoViewIfNeeded()
   }
 }

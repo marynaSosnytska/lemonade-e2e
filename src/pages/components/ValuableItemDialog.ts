@@ -27,12 +27,12 @@ export class ValuableItemDialog {
   // Actions
 
   @step('Increase the declared value by one step')
-  async increaseValue() {
+  async increaseValue(): Promise<void> {
     await this.increaseButton.click()
   }
 
   @step('Decrease the declared value by one step')
-  async decreaseValue() {
+  async decreaseValue(): Promise<void> {
     await this.decreaseButton.click()
   }
 
@@ -44,21 +44,21 @@ export class ValuableItemDialog {
   // Verifications
 
   @step('Verify the quote is higher than ${0} cents')
-  async verifyQuoteHigherThan(cents: number) {
+  async verifyQuoteHigherThan(cents: number): Promise<void> {
     await expect
       .poll(() => this.quotedCents(), { message: `the quote is higher than ${cents} cents` })
       .toBeGreaterThan(cents)
   }
 
   @step('Verify the notice step is showing')
-  async verifyNoticeShown() {
+  async verifyNoticeShown(): Promise<void> {
     await expect(this.noticeHeading, 'the notice step is showing').toBeInViewport()
   }
 
   // Combined flows
 
   @step('Confirm the item')
-  async confirm() {
+  async confirm(): Promise<void> {
     await this.addButton.click()
     await this.verifyNoticeShown()
     await this.gotItButton.click()

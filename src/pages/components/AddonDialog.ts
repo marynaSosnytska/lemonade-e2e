@@ -21,19 +21,19 @@ export class AddonDialog {
   // Actions
 
   @step('Fill the form fields ${0}')
-  async fillForm(values: FormValues) {
+  async fillForm(values: FormValues): Promise<void> {
     for (const [label, value] of Object.entries(values)) {
       await this.field(label).fill(value)
     }
   }
 
   @step('Submit the form')
-  async submit() {
+  async submit(): Promise<void> {
     await this.submitButton.click()
   }
 
   @step('Close the form without submitting')
-  async close() {
+  async close(): Promise<void> {
     await this.closeButton.click()
   }
 
@@ -46,17 +46,17 @@ export class AddonDialog {
   // Verifications
 
   @step('Verify the form can be submitted')
-  async verifyCanSubmit() {
+  async verifyCanSubmit(): Promise<void> {
     await expect(this.submitButton, 'the submit button is enabled').toBeEnabled()
   }
 
   @step('Verify the form cannot be submitted')
-  async verifyCannotSubmit(timeout?: number) {
+  async verifyCannotSubmit(timeout?: number): Promise<void> {
     await expect(this.submitButton, 'the submit button is disabled').toBeDisabled({ timeout })
   }
 
   @step('Verify the form is closed')
-  async verifyClosed() {
+  async verifyClosed(): Promise<void> {
     await expect(this.submitButton, 'the form is gone').toBeHidden()
   }
 }

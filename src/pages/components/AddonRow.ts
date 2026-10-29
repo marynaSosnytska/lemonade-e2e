@@ -29,17 +29,17 @@ export class AddonRow {
   // Actions
 
   @step('Toggle the add-on')
-  async toggle() {
+  async toggle(): Promise<void> {
     await this.toggleLabel.click()
   }
 
   @step('Close the add-on form without submitting')
-  async closeForm() {
+  async closeForm(): Promise<void> {
     await this.form().close()
   }
 
   @step('Fill the add-on form fields ${0}')
-  async fillForm(values: FormValues) {
+  async fillForm(values: FormValues): Promise<void> {
     await this.form().fillForm(values)
   }
 
@@ -51,35 +51,35 @@ export class AddonRow {
   // Verifications
 
   @step('Verify the row lists ${0} cents')
-  async verifyListed(cents: number, billing: Billing = Billing.Monthly) {
+  async verifyListed(cents: number, billing: Billing = Billing.Monthly): Promise<void> {
     const suffix = billing === Billing.Annual ? 'YR' : 'MO'
     const expectedText = `+${priceText(cents)}/${suffix}`
     await expect(this.priceLabel, `the row lists ${expectedText}`).toContainText(expectedText)
   }
 
   @step('Verify the add-on form can be submitted')
-  async verifyCanSubmit() {
+  async verifyCanSubmit(): Promise<void> {
     await this.form().verifyCanSubmit()
   }
 
   @step('Verify the add-on form cannot be submitted')
-  async verifyCannotSubmit(timeout?: number) {
+  async verifyCannotSubmit(timeout?: number): Promise<void> {
     await this.form().verifyCannotSubmit(timeout)
   }
 
   @step('Verify the add-on is on')
-  async verifyOn() {
+  async verifyOn(): Promise<void> {
     await expect(this.checkbox, 'the add-on is checked').toBeChecked()
     await this.dialog?.verifyClosed()
   }
 
   @step('Verify the add-on is off')
-  async verifyOff() {
+  async verifyOff(): Promise<void> {
     await expect(this.checkbox, 'the add-on is unchecked').not.toBeChecked()
   }
 
   @step('Verify the add-on shows saved details ${0}')
-  async verifySavedDetails(text: string) {
+  async verifySavedDetails(text: string): Promise<void> {
     await expect(this.savedDetails(text), `the row shows "${text}"`).toBeVisible()
   }
 
@@ -100,7 +100,7 @@ export class AddonRow {
   }
 
   @step('Turn the add-on off and confirm')
-  async turnOff() {
+  async turnOff(): Promise<void> {
     await this.toggle()
     await this.confirmDialog.yes()
   }
