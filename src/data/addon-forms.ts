@@ -36,10 +36,6 @@ export const INTERESTED_PARTY_INVALID: FormCase[] = [
     title: 'Email has no @',
     values: { ...INTERESTED_PARTY_BASELINE, Email: 'landlord.example.com' },
   },
-  {
-    title: 'Email has spaces',
-    values: { ...INTERESTED_PARTY_BASELINE, Email: 'landlord @example.com' },
-  },
 ]
 
 export const INTERESTED_PARTY_VALID: FormCase[] = [
@@ -47,6 +43,10 @@ export const INTERESTED_PARTY_VALID: FormCase[] = [
   {
     title: 'Email is upper case',
     values: { ...INTERESTED_PARTY_BASELINE, Email: 'LANDLORD@EXAMPLE.COM' },
+  },
+  {
+    title: 'Email has spaces',
+    values: { ...INTERESTED_PARTY_BASELINE, Email: 'landlord @example.com' },
   },
 ]
 
@@ -73,10 +73,6 @@ export const SPOUSE_INVALID: FormCase[] = [
     title: 'Email has no @',
     values: { ...SPOUSE_BASELINE, 'Email (optional)': 'jane.example.com' },
   },
-  {
-    title: 'Email has spaces',
-    values: { ...SPOUSE_BASELINE, 'Email (optional)': 'jane @example.com' },
-  },
 ]
 
 export const SPOUSE_VALID: FormCase[] = [
@@ -84,5 +80,9 @@ export const SPOUSE_VALID: FormCase[] = [
   {
     title: 'Email is a valid address',
     values: { ...SPOUSE_BASELINE, 'Email (optional)': 'jane@example.com' },
+  },
+  {
+    title: 'Email has spaces',
+    values: { ...SPOUSE_BASELINE, 'Email (optional)': 'jane @example.com' },
   },
 ]

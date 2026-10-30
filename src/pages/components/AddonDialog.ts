@@ -23,7 +23,7 @@ export class AddonDialog {
   @step('Fill the form fields ${0}')
   async fillForm(values: FormValues): Promise<void> {
     for (const [label, value] of Object.entries(values)) {
-      await this.field(label).fill(value)
+      await this.field(label).pressSequentially(value)
     }
   }
 
